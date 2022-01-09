@@ -6,20 +6,20 @@
 
 int main(int argc, char *argv[]) {
 	int size = 0;
-	char **testArray = getInput("input1.txt", &size);
+	char **input = getInput("input1.txt", &size);
 	
-	int previous = atoi(testArray[0]);
+	int previous = atoi(input[0]);
 	int current;
 	int counter = 0;
 
 	for(int i = 1; i < size; i++) {
-		current = atoi(testArray[i]);
+		current = atoi(input[i]);
 		if(current > previous) counter++;
 
 		previous = current;
 	}
 
-	destroyInput(testArray, size);
+	destroyInput(input, size);
 
 	printf("%d\n", counter);
 	

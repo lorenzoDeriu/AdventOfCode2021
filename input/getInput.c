@@ -17,8 +17,10 @@ char **getInput(char *fileName, int *dim) {
 
 	char *row = malloc(10);
 
+	size_t buffer_size = 200;
+
 	while (!feof(inputFile)) {
-		fscanf(inputFile, "%s", row);
+		getline(&row, &buffer_size, inputFile);
 		if(row != NULL) 
 			if(size > index) input[index] = strdup(row);
 			else {
