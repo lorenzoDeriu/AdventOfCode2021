@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.make": "makefile",
+		"stdio.h": "c",
+		"getinput.h": "c"
+	}
+}
