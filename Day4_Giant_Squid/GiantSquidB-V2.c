@@ -149,28 +149,11 @@ void printBoard(Board board) {
 }
 
 void markCell(Board *boardList, int numberOfBoard, int numberDrawn) {
-	// printf("\n\nINIZIO TURNO\n");
-
 	for(int i = 0; i < numberOfBoard; i++) {
 		for(int j = 0; j < BoardDimension; j++)
 			for(int k = 0; k < BoardDimension; k++)
 				if(boardList[i].cell[j][k].number == numberDrawn) boardList[i].cell[j][k].marked = true;
-
-		// printf("\n");
-		// for(int k = 0; k < BoardDimension; k++) {
-		// 	for(int j = 0; j < BoardDimension; j++) {
-		// 		char marked;
-		// 		if(boardList[i].cell[k][j].marked) marked = 'V';
-		// 		else marked = 'X';
-				
-		// 		printf("[%2d,%c]\t", boardList[i].cell[k][j].number, marked);
-		// 	}
-		// 	printf("\n");
-		// }
-		// printf("\n");
-
 	}
-	// printf("\nFINE TURNO\n\n");
 }
 
 bool wholeRowMarked(Board board, int row) {
