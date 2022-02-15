@@ -2,9 +2,9 @@ FILE_NAME = "input8.txt"
 SEARCHED_SEGMENGTS_LENGHT = [2,4,3,7]
 
 def main():
-	inputFile = open(FILE_NAME)
-	input = inputFile.read().split("\n")
-	inputFile.close()
+	input_file = open(FILE_NAME)
+	input = input_file.read().split("\n")
+	input_file.close()
 
 	counter = 0
 	
@@ -14,9 +14,9 @@ def main():
 	
 	print(counter)
 
-def updateCounter(array, counter):
+def updateCounter(array: list, counter: int) -> int:
 	for word in array:
-		if(len(word) in SEARCHED_SEGMENGTS_LENGHT):
+		if len(word) in SEARCHED_SEGMENGTS_LENGHT:
 			counter += 1
 	return counter
 

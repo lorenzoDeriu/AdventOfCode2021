@@ -1,34 +1,40 @@
+from typing import TypeVar
+
 FILE_NAME = "input5.txt"
 
-inputFile = open(FILE_NAME)
-input = inputFile.read().split("\n")
-inputFile.close()
+input_file = open(FILE_NAME)
+input = input_file.read().split("\n")
+input_file.close()
+
+Position = TypeVar("Position", bound = "Position")
 
 class Position:
-	def __init__(self, newX, newY):
-		self.x = int(newX)
-		self.y = int(newY)
+	def __init__(self, new_X: int, new_Y: int) -> None:
+		self.x = int(new_X)
+		self.y = int(new_Y)
 
-	def __eq__(self, other):
+	def __eq__(self, other: Position) -> bool:
+		if other == None:
+			return False
 		return self.x == other.x and self.y == other.y
 
 class Line:
-	def __init__(self, newStartPosition, newEndPosition):
-		self.startPosition = newStartPosition
-		self.endPosition = newEndPosition
+	def __init__(self, new_start_position: Position, new_end_position: Position) -> None:
+		self.start_position = new_start_position
+		self.end_position = new_end_position
 
 def main():
-	lineList = buildLineList(input)
-	high, width = getMax_X(lineList)+1, getMax_Y(lineList)
+	line_list = build_line_list(input)
+	high, width = get_max_X(line_list)+1, get_max_Y(line_list)
 
-	grid = [[0 for w in range(width + 1)] for h in range(high + 1)]
+	grid = [[0 for _ in range(width + 1)] for _ in range(high + 1)]
 
-	for line in lineList:
-		currentPosition = line.startPosition
+	for line in line_list:
+		current_position = line.start_position
 
-		while(currentPosition != None):
-			updateGrid(grid, currentPosition)
-			currentPosition = getNextPosition(line, currentPosition)
+		while(current_position != None):
+			update_grid(grid, current_position)
+			current_position = get_next_position(line, current_position)
 	
 	counter = 0
 
@@ -39,48 +45,48 @@ def main():
 	
 	print(counter)
 
-def buildLineList(input):
-	lineList = []
+def build_line_list(input: list) -> list:
+	line_list = []
 	for line in input:
-		linePosition = line.replace(" -> ", ",").split(",")
-		startPosition = Position(linePosition[0], linePosition[1])
-		endPosition = Position(linePosition[2], linePosition[3])
+		line_position = line.replace(" -> ", ",").split(",")
+		start_position = Position(line_position[0], line_position[1])
+		end_position = Position(line_position[2], line_position[3])
 
-		newLine = Line(startPosition, endPosition)
-		lineList.append(newLine)
+		new_line = Line(start_position, end_position)
+		line_list.append(new_line)
 
-	return lineList
+	return line_list
 
-def getMax_X(lineList):
-	max = lineList[0].startPosition.x
-	for line in lineList:
-		if max < line.startPosition.x: max = line.startPosition.x
-		elif max < line.endPosition.x: max = line.endPosition.x
-
-	return max
-
-def getMax_Y(lineList):
-	max = lineList[0].startPosition.y
-	for line in lineList:
-		if max < line.startPosition.y: max = line.startPosition.y
-		elif max < line.endPosition.y: max = line.endPosition.y
+def get_max_X(line_list: list) -> int:
+	max = line_list[0].start_position.x
+	for line in line_list:
+		if max < line.start_position.x: max = line.start_position.x
+		elif max < line.end_position.x: max = line.end_position.x
 
 	return max
 
-def updateGrid(grid, positionToUpdate):
-	grid[positionToUpdate.x][positionToUpdate.y] += 1
+def get_max_Y(line_list: list) -> int:
+	max = line_list[0].start_position.y
+	for line in line_list:
+		if max < line.start_position.y: max = line.start_position.y
+		elif max < line.end_position.y: max = line.end_position.y
 
-def getNextPosition(line, currentPosition):
-	if currentPosition == line.endPosition:
+	return max
+
+def update_grid(grid: list, position_to_update: Position):
+	grid[position_to_update.x][position_to_update.y] += 1
+
+def get_next_position(line: Line, current_position: Position) -> Position:
+	if current_position == line.end_position:
 		return None
-	return Position(updateCoordinate(currentPosition.x, line.endPosition.x), updateCoordinate(currentPosition.y, line.endPosition.y))
+	return Position(update_coordinate(current_position.x, line.end_position.x), update_coordinate(current_position.y, line.end_position.y))
 
-def updateCoordinate(currentCoordinate, target):
-	if currentCoordinate < target:
-		currentCoordinate += 1
-	elif currentCoordinate > target:
-		currentCoordinate -= 1
-	return currentCoordinate
+def update_coordinate(current_coordinate: int, target: int) -> int:
+	if current_coordinate < target:
+		current_coordinate += 1
+	elif current_coordinate > target:
+		current_coordinate -= 1
+	return current_coordinate
 
 if __name__ == "__main__":
 	main()

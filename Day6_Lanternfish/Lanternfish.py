@@ -3,31 +3,31 @@ FILE_NAME = "input6.txt"
 NUMBER_OF_DAYS = 256 # part 2
 
 def main():
-	inputFile = open(FILE_NAME)
-	input = inputFile.read()
-	inputFile.close()
+	input_file = open(FILE_NAME)
+	input = input_file.read()
+	input_file.close()
 
-	initialState = input.split(',')
+	initial_state = input.split(',')
 
-	fishInDay = [0 for i in range(9)]
-	for state in initialState:
-		fishInDay[int(state)] += 1
+	fish_in_day = [0 for i in range(9)]
+	for state in initial_state:
+		fish_in_day[int(state)] += 1
 	
 	for _ in range(NUMBER_OF_DAYS):
-		deadFish = fishInDay[0]
+		dead_fish = fish_in_day[0]
 
 		for i in range(8):
-			fishInDay[i] = fishInDay[i + 1]
+			fish_in_day[i] = fish_in_day[i + 1]
 
-		fishInDay[8] = deadFish
-		fishInDay[6] += deadFish
+		fish_in_day[8] = dead_fish
+		fish_in_day[6] += dead_fish
 
-	totalFish = 0
+	total_fish = 0
 
-	for day in fishInDay:
-		totalFish += day
+	for number_of_fish in fish_in_day:
+		total_fish += number_of_fish
 
-	print(totalFish)
+	print(total_fish)
 
 if __name__ == "__main__":
 	main()
